@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field_r %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>  معلومات الشركة </strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+
+
+            {{ form.hidden_tag() }}
+<div class="form-group row mb-3">
+    <label class="col-3 col-form-label" for="email">الشعار</label>
+        <div class="col-9">
+           <img src="/static/images/uploads/{{form.logo.data}}" width="100px">
+        </div>
+</div>
+            {{ render_field_r(form.branch_name) }}
+            {{ render_field_r(form.vat_no) }}
+            {{ render_field_r(form.phone) }}
+            {{ render_field_r(form.address) }}
+            {{ render_field_r(form.cr) }}
+            {{ render_field_r(form.email) }}
+
+
+        <a class="btn btn-info" href="/user/settings/edit"> تعديل معلومات الشركة</a>
+        <a class="btn btn-danger" href="/">العودة</a>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

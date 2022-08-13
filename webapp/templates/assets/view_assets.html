@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong> <a href="/systems/view/{{system.id}}"> {{system.name}} </a> </strong></h5>
+      <a class="btn btn-info float-right ml-2"href="/assets/web/add/{{system.id}}">
+        <i class="fas fa-plus"></i> Add Web Assets 
+
+      </a>
+      <a class="btn btn-info float-right ml-2" href="/assets/network/add/{{system.id}}">
+        <i class="fas fa-plus"></i> Add Network Assets 
+      </a>
+    </div>
+
+
+
+
+    <div class="card-body">
+      <table id="table" class="table table-responsive  table-condensed table-striped">
+        <thead>
+          <th class="text-center">Asset </th>
+        </thead>
+        <tbody>
+
+          {% for b in assets%}
+          <tr>
+            <td class="text-center"> {{ b.fqdn }} </td>
+            <td class="text-center"> {{ b.ip }} </td>
+            <td class="text-center">  
+               {% if b.fqdn %} <a href="/assets/delete_asset/{{b.system_id}}/?asset={{b.fqdn}}&type=web"> <i class="fas  fa-trash "></i> </a> {% endif %}
+               {% if b.ip %} <a href="/assets/delete_asset/{{b.system_id}}/?asset={{b.ip}}&type=network"> <i class="fas  fa-trash "></i> </a> {% endif %}
+            </td>
+          </tr>
+           {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

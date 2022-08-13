@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong></strong></h5>
+      <a class="btn btn-info float-right"href="/admin/users/add">
+        <i class="fas fa-plus"></i> New User
+      </a>
+    </div>
+
+
+    <div class="card-body">
+
+
+
+      <table id="table" class="table table-  table-condensed table-striped">
+        <thead>
+          <tr>
+            <th  style="width: 3%">  </th>
+            <th  style="width: 2%">  </th>
+            <th  style="width: 20%"> Name </th>
+            <th  style="width: 10%"> Title </th>
+            <th style="width: 20%"> Email </th>
+            <th style="width: 20%"> Type </th>
+            <th  style="width: 10%"> Phone</th>
+            <th  style="width: 5%"> Status </th>
+          </tr>
+
+        </thead>
+
+
+
+
+        <tbody>
+
+          {% for b in users %}
+
+          <tr>
+            <td class="text-center">  
+             {% if  b.admin %}
+              <i class="fas  fa-circle "></i>
+             {% endif %}
+            </td>
+            <td class="text-center">  
+             {% if  b.status == 'inactive' %}
+              <i class="fas  fa-lock "></i>
+             {% endif %}
+            </td>
+            <td> <a href="/admin/user/{{b.id}}"> {{b.name}} </a> </td>
+            <td  > {{ b.job_title }} </td>
+            <td  > {{ b.email }} </td>
+            <td  > {{ b.type }} </td>
+            <td  > {{ b.phone }} </td>
+            <td> 
+              <a href="/admin/delete_user/{{b.id}}"> <i class="fas  fa-trash "></i> </a> 
+              {% if  b.status == 'inactive' %} 
+                <a href="/admin/activate_user/{{b.id}}"> <i class="fas  fa-toggle-off "></i> </a> 
+              {% else %}
+              <a href="/admin/suspend_user/{{b.id}}"> <i class="fas  fa-toggle-on "></i> </a> 
+              {% endif %}
+            </td>
+
+          </tr>
+           {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

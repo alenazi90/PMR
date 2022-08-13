@@ -1,0 +1,501 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field_r , render_field%}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+<h5 class="mb-2">معلومات المهمة</h5>
+
+<div class="row">
+   <div class="col-md-2 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Type</span>
+            <span class="info-box-number">{{ form.type.data }}</span>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-2 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Assigned to</span>
+            <span class="info-box-number">{{form.assigned_to.data}}</span>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-2 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Status </span>
+            <span class="info-box-number">{{e.status}}</span>
+            <div class="progress progress-sm">
+             <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: {{e.bar}}%"></div> 
+            </div>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-2 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Start Date</span>
+            <span class="info-box-number">{{form.start_date.data}} </span>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-2 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">End Date</span>
+            <span class="info-box-number">{{form.end_date.data}}</span>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+
+
+
+    <div class="col-md-2 col-sm-3 col-12">
+        <div class="info-box shadow-none bg-critical">
+            <div class="info-box-content text-center">
+                <span class="box-text text-xs">Risk Level</span>
+                <span class="box-text text-lg">CRITICAL</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col-md-3 -->
+
+</div>
+
+
+
+
+
+<h5 class="mb-2">مؤشرات التقارير</h5>
+
+<div class="row">
+    <div class="col-md-2 col-sm-3 col-12">
+        <div class="info-box shadow-none">
+            <div class="info-box-content text-center">
+                <span class="info-box-number text-xl">{{pendings.identified.total}}</span>
+                <br>
+                <span class="info-box-text text-sm">IDENTIFIED</span>
+
+                <!-- detail vulnerabilites -->
+                <div class="row text-muted">
+                {% for type in pendings.identified.types %}
+                  <div class="col ">
+                    <span class="info-box-number text-xs">{{type.count}}</span>
+                    <span class="info-box-text text-xs"> {{ type.title }} </span>            
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- end detail vulnerabilites -->
+
+           </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col-md-3 -->
+
+
+    <div class="col-md-2 col-sm-3 col-12">
+        <div class="info-box shadow-none">
+            <div class="info-box-content text-center">
+                <span class="info-box-number text-xl">{{pendings.riskaccepted.total}}</span>
+                <br>
+                <span class="info-box-text text-sm">Risk Accepted</span>
+
+                <!-- detail vulnerabilites -->
+                <div class="row text-muted">
+                {% for type in pendings.riskaccepted.types %}
+                  <div class="col">
+                    <span class="info-box-number text-xs">{{type.count}}</span>
+                    <span class="info-box-text text-xs"> {{ type.title }} </span>            
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- end detail vulnerabilites -->
+
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col-md-3 -->
+
+    <div class="col-md-2 col-sm-3 col-12">
+        <div class="info-box shadow-none">
+            <div class="info-box-content text-center">
+                <span class="info-box-number text-xl">{{pendings.critical.total}}</span>
+                <br>
+                <span class="info-box-text text-sm bg-critical">حرج</span>
+
+                <!-- detail vulnerabilites -->
+                <div class="row text-muted">
+                {% for type in pendings.critical.types %}
+                  <div class="col">
+                    <span class="info-box-number text-xs">{{type.count}}</span>
+                    <span class="info-box-text text-xs"> {{ type.title }} </span>            
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- end detail vulnerabilites -->
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col-md-3 -->
+
+
+    <div class="col-md-2 col-sm-3 col-12">
+        <div class="info-box shadow-none">
+            <div class="info-box-content text-center">
+                <span class="info-box-number text-xl">{{pendings.high.total}}</span>
+                <br>
+                <span class="info-box-text text-sm bg-high">HIGH</span>
+
+                <!-- detail vulnerabilites -->
+                <div class="row text-muted">
+                {% for type in pendings.high.types %}
+                  <div class="col">
+                    <span class="info-box-number text-xs">{{type.count}}</span>
+                    <span class="info-box-text text-xs"> {{ type.title }} </span>            
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- end detail vulnerabilites -->
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col-md-3 -->
+
+
+    <div class="col-md-2 col-sm-3 col-12">
+        <div class="info-box shadow-none">
+            <div class="info-box-content text-center">
+                <span class="info-box-number text-xl">{{pendings.medium.total}}</span>
+
+                <br>
+                <span class="info-box-text text-sm bg-medium">MEDIUM</span>
+
+                <!-- detail vulnerabilites -->
+                <div class="row text-muted">
+                {% for type in pendings.medium.types %}
+                  <div class="col">
+                    <span class="info-box-number text-xs">{{type.count}}</span>
+                    <span class="info-box-text text-xs"> {{ type.title }} </span>            
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- end detail vulnerabilites -->
+
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col-md-3 -->
+
+
+    <div class="col-md-2 col-sm-3 col-12">
+        <div class="info-box shadow-none ">
+            <div class="info-box-content text-center">
+                <span class="info-box-number text-xl">{{pendings.low.total}}</span>
+                <br>
+                <span class="info-box-text text-sm bg-low">LOW</span>
+
+                <!-- detail vulnerabilites -->
+                <div class="row text-muted">
+                {% for type in pendings.low.types %}
+                  <div class="col">
+                    <span class="info-box-number text-xs">{{type.count}}</span>
+                    <span class="info-box-text text-xs"> {{ type.title }} </span>            
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- end detail vulnerabilites -->
+
+
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col-md-3 -->
+
+
+
+</div>
+
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>Engagement Information</strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+
+
+            {{ form.hidden_tag() }}
+            {{ render_field_r(form.name) }}
+            {{ render_field_r(form.tester) }}
+            {{ render_field(form.soc_notification,clas="checkbox_width") }}
+
+
+
+        <a class="btn btn-info" href="/engagements/edit/{{form.id.data}}"> Edit</a>
+        <a class="btn btn-danger" href="/">Back</a>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>Reports</strong></h5>
+      <a class="btn btn-info float-right"href="/reports/add/{{form.id.data}}">
+        <i class="fas fa-plus"></i> New Report
+      </a>
+
+    </div>
+
+
+    <div class="card-body">
+      <table id="table" class="table table-responsive  table-condensed table-striped">
+        <thead>
+          <th class="text-center"> Report ID </th>
+          <th class="text-center"> Report Name </th>
+          <th class="text-center"> Report Tester </th>
+          <th class="text-center"> Test Type </th>
+          <th class="text-center"> Report Scope </th>
+          <th class="text-center"> Recved On </th>
+          <th class="text-center"> Critical </th>
+          <th class="text-center"> High </th>
+          <th class="text-center"> Medium </th>
+          <th class="text-center"> Low </th>
+          <th class="text-center"> Risk Accepted </th>
+        </thead>
+        <tbody>
+
+
+          {% for b in reports %}
+           {% if b.scope == "network" %}
+          <tr>
+            <td class="text-center"> {{ b.report_id }} </td>
+            <td class="text-center"> {{ b.report_name }} </td>
+            <td class="text-center"> {{ b.tester }} </td>
+            <td class="text-center"> {{ b.type }} </td>
+            <td class="text-center"> {{ b.scope }} </td>
+            <td class="text-center"> {{ b.recv_date }} </td>
+            <td class="text-center bg-critical"> <span class="text-lg">{{b.c}} </span>   </td>
+            <td class="text-center bg-high"> <span class="text-lg">{{b.h}} </span> </td>
+            <td class="text-center bg-medium"><span class="text-lg">  {{b.m}}  </span> </td>
+            <td class="text-center bg-low"> <span class="text-lg">{{b.l}}</span> </td>
+            <td class="text-center bg-info"> <span class="text-lg">{{b.r}}</span> </td>
+            <td class="text-center">
+              <a class="btn btn-info float-right"href="/reports/verify/{{b.id}}">
+               <i class="fas fa-plus"></i> Create Verification
+              </a>
+            </td>
+          </tr>
+             {% endif %}
+           {% endfor %}
+
+          {% for b in reports %}
+           {% if b.scope == "web" %}
+          <tr>
+            <td class="text-center"> {{ b.report_id }} </td>
+            <td class="text-center"> {{ b.report_name }} </td>
+            <td class="text-center"> {{ b.tester }} </td>
+            <td class="text-center"> {{ b.type }} </td>
+            <td class="text-center"> {{ b.scope }} </td>
+            <td class="text-center"> {{ b.recv_date }} </td>
+            <td class="text-center bg-critical"> <span class="text-lg">{{b.c}} </span>   </td>
+            <td class="text-center bg-high"> <span class="text-lg">{{b.h}} </span> </td>
+            <td class="text-center bg-medium"><span class="text-lg">  {{b.m}}  </span> </td>
+            <td class="text-center bg-low"> <span class="text-lg">{{b.l}}</span> </td>
+            <td class="text-center bg-info"> <span class="text-lg">{{b.r}}</span> </td>
+            <td class="text-center">
+              <a class="btn btn-info float-right"href="/reports/verify/{{b.id}}">
+               <i class="fas fa-plus"></i> Create Verification
+              </a>
+            </td>
+          </tr>
+             {% endif %}
+           {% endfor %}
+
+          {% for b in reports %}
+           {% if b.scope == "mobile" %}
+          <tr>
+            <td class="text-center"> {{ b.report_id }} </td>
+            <td class="text-center"> {{ b.report_name }} </td>
+            <td class="text-center"> {{ b.tester }} </td>
+            <td class="text-center"> {{ b.type }} </td>
+            <td class="text-center"> {{ b.scope }} </td>
+            <td class="text-center"> {{ b.recv_date }} </td>
+            <td class="text-center bg-critical"> <span class="text-lg">{{b.c}} </span>   </td>
+            <td class="text-center bg-high"> <span class="text-lg">{{b.h}} </span> </td>
+            <td class="text-center bg-medium"><span class="text-lg">  {{b.m}}  </span> </td>
+            <td class="text-center bg-low"> <span class="text-lg">{{b.l}}</span> </td>
+            <td class="text-center bg-info"> <span class="text-lg">{{b.r}}</span> </td>
+            <td class="text-center">
+              <a class="btn btn-info float-right"href="/reports/verify/{{b.id}}">
+               <i class="fas fa-plus"></i> Create Verification
+              </a>
+            </td>
+          </tr>
+             {% endif %}
+           {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- end -->
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>Scope</strong></h5>
+    </div>
+
+
+    <div class="card-body">
+      <table id="table" class="table table-responsive  table-condensed table-striped">
+        <thead>
+          <th class="text-center"> Scope </th>
+        </thead>
+        <tbody>
+
+          {% for b in scope['ips'] %}
+          <tr>
+            <td class="text-center"> {{ b }} </td>
+          </tr>
+           {% endfor %}
+          {% for b in scope['urls'] %}
+          <tr>
+            <td class="text-center"> {{ b }} </td>
+          </tr>
+           {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- end -->
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

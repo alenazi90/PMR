@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field_r %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+<div class="row">
+   <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Web Assets</span>
+            <a href="/assets/web/view/{{form.id.data}}" <span class="info-box-number">View {{web_count}} </span></a>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Network Assets</span>
+            <a href="/assets/network/view/{{form.id.data}}" <span class="info-box-number">View {{network_count}}</span></a>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Total Engagements</span>
+            <span class="info-box-number">#</span>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+         <div class="info-box-content">
+            <span class="info-box-text">Last Engagements</span>
+            <span class="info-box-number">2021</span>
+         </div>
+         <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+   </div>
+   <!-- /.col -->
+</div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>System Information</strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+
+
+            {{ form.hidden_tag() }}
+            {{ render_field_r(form.name) }}
+            {{ render_field_r(form.department) }}
+            {{ render_field_r(form.severity) }}
+            {{ render_field_r(form.contact_name) }}
+            {{ render_field_r(form.contact_email) }}
+
+
+
+        <a class="btn btn-info" href="/system/edit/{{form.id.data}}"> Edit</a>
+        <a class="btn btn-danger" href="/">Back</a>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

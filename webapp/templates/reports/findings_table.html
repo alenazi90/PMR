@@ -1,0 +1,158 @@
+{% macro render(id, url) -%}
+
+
+  <div class=" ard">
+    <div class="rd-body">
+
+      <table class="table" data-search="true"  id='{{id}}' data-search="true" data-filter="true" class="table table-hover"      data-checkbox-header="false" data-click-to-select="true"  data-row-style="rowStyle" >
+        <thead>
+          <tr>
+            <th data-formatter="labelFormatter" data-field="recv_date"   ></th> 
+            <th data-field="title"  > Title </th> 
+            <th data-field="scope" > Scope </th>  
+            <th data-field="severity" > Severity </th> 
+            <th data-field="name" >  </th> 
+            <th data-field="owner_name" >  </th> 
+            <th data-formatter="dateFormatter" data-field="recv_date"  > Opening Date </th> 
+            <th data-formatter="slaFormatter" data-field="recv_date" > SLA Breach </th> 
+            <th data-field="status"  > status </th> 
+          </tr>
+           
+        </thead>
+      </table>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    
+  
+  
+  
+var table = $('#{{id}}').bootstrapTable({
+  url: '{{url}}',
+  sidePagination: "client",
+  pagination: true,
+  showRefresh: true,
+});
+    
+
+function rowStyle(row, index) {
+
+
+ if (row.severity == 'critical') {
+   if ( moment(moment(row.recv_date).add(7, 'day')).isBefore(moment()) )
+     return {  css: {  'display': 'revert'  }     }
+ } else if (row.severity == 'high') {
+   if ( moment(moment(row.recv_date).add(14, 'day')).isBefore(moment()) )
+     return {  css: {  'display': 'revert'  }     }
+ } else if (row.severity == 'medium') {
+   if ( moment(moment(row.recv_date).add(21, 'day')).isBefore(moment()) )
+     return {  css: {  'display': 'revert'  }     }
+ } else if (row.severity == 'low') {
+   if ( moment(moment(row.recv_date).add(30, 'day')).isBefore(moment()) )
+     return {  css: {  'display': 'revert'  }     }
+ } else {
+  return {  css: {  'display': 'none'  }     }
+ }
+  return {  css: {  'display': 'none'  }     }
+
+
+
+}
+
+
+
+
+//note
+//return ''+ moment(moment(value).add(7, 'day')).diff(moment(), 'days' )  +'';
+
+function dateFormatter(value, row, index) {
+   return '<span title="Closing Date:  '+ moment(value).add(7, 'day').format('DD-MM-YYYY') +'">' + moment(value).format('DD-MM-YYYY') + '</span>' ;
+}
+
+function labelFormatter(value, row, index) {
+ if (row.severity == 'critical') {
+   if ( moment(moment(value).add(7, 'day')).isBefore(moment()) )
+     return '<span class="bg-critical"> &nbsp; </span>';
+   return '<span class=""> &nbsp; </span>';
+ } else if (row.severity == 'high') {
+   if ( moment(moment(value).add(14, 'day')).isBefore(moment()) )
+     return '<span class="bg-high"> &nbsp; </span>';
+   return '<span class=""> &nbsp; </span>';
+ } else if (row.severity == 'medium') {
+
+   if ( moment(moment(value).add(21, 'day')).isBefore(moment()) )
+     return '<span class="bg-medium"> &nbsp; </span>';
+   return '<span class=""> &nbsp; </span>';
+
+ } else if (row.severity == 'low') {
+   if ( moment(moment(value).add(30, 'day')).isBefore(moment()) )
+     return '<span class="bg-low"> &nbsp; </span>';
+   return '<span class=""> &nbsp; </span>';
+ }
+}
+
+function slaFormatter(value, row, index) {
+ if (row.severity == 'critical') { 
+//   return moment(moment(value).add(7, 'day')).isBefore(moment())  ;
+   return moment(moment(value).add(7, 'day')).fromNow()  ;
+ } else if (row.severity == 'high') {
+   return moment(moment(value).add(14, 'day')).fromNow()  ;
+ } else if (row.severity == 'medium') {
+   return moment(moment(value).add(21, 'day')).fromNow()  ;
+ } else if (row.severity == 'low') {
+   return moment(moment(value).add(30, 'day')).fromNow()  ;
+ }
+}
+
+function statusFormatter(value, row, index) {
+ if (row.severity == 'critical') { 
+   return '<span class="text-center bg-critical" style="padding:10px; width:30px">'+value+'</span>';
+ } else if (row.severity == 'high') {
+   return '<span class="text-center bg-high" style="padding:10px" >'+value+'</span>';
+ } else if (row.severity == 'medium') {
+   return '<span class="text-center bg-medium" style="padding:10px" >'+value+'</span>';
+ } else if (row.severity == 'low') {
+   return '<span class="text-center bg-low"    style="padding:10px">'+value+'</span>';
+ }
+}
+
+function actionFormatter(value, row, index) {
+ if (row.severity == 'critical') { 
+   return '<span class="text-center bg-critical">'+value+'</span>';
+ }
+
+ if ( row.status == 'active' ) {
+   return [
+        '<a class="refresh" href="javascript:void(0)" title="refresh password">',
+        '<i class="fas fa-edit"></i>',
+        '</a> ',
+        '<a class="remove ml10" href="javascript:void(0)" title="Remove">remove',
+        '<i class="fas fa-remove"></i>',
+        '</a>'
+    ].join('');
+ } else {
+   return [
+
+        '<a class="refresh" href="javascript:void(0)" title="refresh password">',
+        '<i class="fas fa-edit"></i>',
+        '</a> ',
+        '<a class="activate" href="javascript:void(0)" title="activate">activate',
+        '<i class="fas fa-ok"></i>',
+        '</a>',
+
+    ].join('');
+ }
+}
+
+
+
+</script>
+
+
+
+
+{%- endmacro %}

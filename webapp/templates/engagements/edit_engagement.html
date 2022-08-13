@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field %}
+
+{% block head %}
+<script>
+function toEnglishNumber(strNum) {
+   var ar = '٠١٢٣٤٥٦٧٨٩.'.split('');
+   var en = '0123456789.'.split('');
+   strNum = strNum.replace(/[٠١٢٣٤٥٦٧٨٩]/g, x => en[ar.indexOf(x)]);
+   strNum = strNum.replace(/[^\d|\.]/g, '');
+   return strNum;
+}
+
+$(document).on('keyup', '.arabicNumbers', function(e) {
+   var val = toEnglishNumber($(this).val());
+   $(this).val(val);
+});
+
+$(document).on('change', '.AarabicNumbers', function(e) {
+   $(this).val( (parseFloat($(this).val())).toFixed(2) );
+});
+
+
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+</script>
+{% endblock %}
+
+
+{% block body %}
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>Edit Engagement Form</strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+
+          <div class="row">
+             <div class="col-sm-6">
+
+                    {{ render_field(form.name) }}
+                    <!-- { { render_field(form.tester, clas="select",multiple=True) } } -->
+ 
+                 <div class="form-group row mb-3">
+                     <label class="col-3 col-form-label" for="type">Tester</label>
+                    <div class="col-9">
+                       <select class="form-control js-example-basic-multiple" id="tester" name="tester[]" multiple="multiple">
+                         {% for tester in testers %}
+                          {% if tester.id in cur_testers %} 
+                           <option value="{{tester.id}}" selected>{{tester.name}}</option>
+                          {% else %}
+                           <option value="{{tester.id}}" >{{tester.name}}</option>
+                          {% endif %}                         
+                         {% endfor %}
+                       </select>
+                     </div>
+                  </div>
+
+                    {{ render_field(form.assigned_to,clas="select2") }}
+                    {{ render_field(form.start_date) }}
+                    {{ render_field(form.end_date) }}
+                    {{ render_field(form.category) }}
+                    <!-- { { render_field(form.type,clas="select2 js-example-basic-multiple ",multiple=True) } } -->
+
+                 <div class="form-group row mb-3">
+                     <label class="col-3 col-form-label" for="type">PT Type</label>
+                    <div class="col-9">
+                       <select class="form-control js-example-basic-multiple" id="type" name="type[]" multiple="multiple">
+                         
+                         <option value="network" {% if 'network' in cur_type %} selected {% endif %} >Network</option>
+                         <option value="web" {% if 'web' in cur_type %} selected {% endif %}>Web</option>
+                         <option value="android" {% if 'android' in cur_type %} selected {% endif %} >Mobile Android</option>
+                         <option value="ios" {% if 'ios' in cur_type %} selected {% endif %} >Mobile iOS</option>
+
+                       </select>
+                     </div>
+                  </div>
+                    {{ render_field(form.src_ip) }}
+                    {{ render_field(form.status) }}
+                    {{ render_field(form.soc_notification) }}
+                      
+             </div>
+             <div class="col-sm-6">
+                      
+             </div>
+           </div>
+
+
+
+
+
+
+    </div>
+
+                <div class="card-footer">
+                     <button class="btn btn-info" type="submit" name="button">Save</button>
+                     <a class="btn btn-danger" href="/engagements">Back</a>
+		   </form>
+                </div>
+  </div>
+
+
+<script>
+
+</script>
+
+
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

@@ -1,0 +1,299 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="{{ url_for('static', filename='css/reports/report.css') }}" rel="stylesheet">
+    <title>Report</title>
+    <meta name="description" content="Report example">
+  </head>
+
+  <body>
+    <article id="cover" style="background:url({{config['app_base_url']}}/static/images/logos/{{settings['logo']}}) no-repeat   center; margin:0;padding:0">
+      <h1 id="report-title"> {{settings['title']}}</h1>
+
+
+
+
+      <address>
+        {{form.name.data}} 
+        {{report.report_id }} 
+        {{settings['company_name']}}
+      </address>
+    </article>
+
+
+    <article id="contents">
+      <h2>Table of contents</h2>
+      <!-- h3>Part one</h3 -->
+      <ul>
+        <li><a href="#Introduction-title"></a></li>
+       <ul>
+        <li><a href="#Executive-title"></a></li>
+        <li><a href="#Objective-title"></a></li>
+        <li><a href="#Schedule-title"></a></li>
+        <li><a href="#Targets-title"></a></li>
+        <!--li><a href="#Limitations-title"></a></li>
+        <li><a href="#RemediationSummary-title"></a></li-->
+       </ul>
+        <li><a href="#FindingsSummary-title"></a></li>
+        <li><a href="#findings-title"></a></li>
+<ul>
+{% for b in report['findings'] %}
+        <li><a href="#{{b.title}}"></a></li>
+{% endfor %}
+</ul>
+        <li><a href="#appendix-title"></a></li>
+      </ul>
+
+    </article>
+
+
+
+
+
+
+
+    <article id="Introduction">
+      <h2 class="break" id="Introduction-title">Introduction</h2>
+
+      <h3 id="Executive-title">Executive Summary</h3>
+
+<p>The goal of the test was to determine the security posture and identify attack vectors and vulnerabilities
+also check whether an attacker on the Internet could exploit these vulnerabilities. The scope of the engagement focused on
+network penetration testing of internal services across the internal infrastructure. Moreover, all activities were
+simulated as a malicious attack engaged in a targeted attack against the internal network. The Penetration test followed
+PTES methodology in order to conduct thorough and comprehensive tests. The subsequent sections of the report
+enclose the detailed methodology, detailed findings and recommendation of the assessment.
+
+      </p>
+
+
+
+
+      <h3 id="Objective-title">Objective </h3>
+     <p>
+         The main purpose of the Penetration Testing is to discover potential security flaws that can be leveraged by a malicious actor and compromise the Order website. Any type of vulnerabilities, regardless of their severity, that put a server at a risk of a compromise are also identified during this phase. Subsequently, mitigation controls, security recommendations and best practices, and hardening procedures are provided to address each of identified security vulnerability.
+     </p>
+
+
+      <h3 id="Schedule-title">Schedule </h3>
+
+      <p>
+PT Team conducted  penetration test between  {{form.start_date.data}} to {{form.end_date.data}}.
+</p>
+
+
+
+
+
+      <h3 id="Targets-title">Scope</h3>
+
+<p>
+The scope of this engagement is to perform a Grey Box  Penetration Test against Internal Systems. Denial of service and
+social engineering attacks were not included in the scope of the project. The scope of this engagement provided by
+system owner is as follow:
+</p>
+
+<table class="table mb-0 border ">
+<thead class="table-light">
+<tr><th colspan="2" scope="col">Scope</th></tr>
+</thead>
+  <tr class="text-dark">
+    <td class="py-2"> Application Name </td>  <td class="py-2"> {{ form.name.data }} </td>
+  </tr>
+  <tr class="text-dark">
+    <td class="py-2"> Testing Type </td>  <td class="py-2"> {{ report.scope }} </td>
+  </tr>
+  <tr class="text-dark">
+    <td class="py-2">Total Target </td>  <td class="py-2"> {{ scope['ips']|count }} IP Address , {{ scope['urls']|count }} URL  </td>
+  </tr>
+  <tr class="text-dark">
+    <td class="py-2">Engagement Scope </td>  <td class="py-2">
+     {% for b in scope['ips'] %}
+     {{ b }} ,
+     {% endfor %}
+     {% for b in scope['urls'] %}
+     {{ b }} ,
+     {% endfor %}
+    </td>
+  </tr>
+</table>
+
+
+
+
+
+      <!-- h3 id="Limitations-title">Limitations </h3 -->
+
+
+
+
+
+      <h2 class="break" id="FindingsSummary-title">Findings Summary</h2>
+
+
+<p>
+PT Team carried out the penetration test and vulnerability assessment during that PT team came to a conclusion Order website has some good defense in-depth implementation on web side.
+Based on the penetration testing activities, PT have found {{report.c}} Critical {{report.h}} High {{report.m}} Medium and {{report.l }} Low risk vulnerabilities. However, these are web application vulnerabilities only.
+</p>
+
+<h3>Overview</h3>
+
+<center> <img src="{{chart_summary|safe}}" class="achart"> </center>
+
+
+<h3>Finding Sumamry</h3>
+
+
+      <table id="table" class="table table-  table-condensed table-striped">
+        <thead>
+          <th class="text-center"> Vulnerability </th>
+          <th class="text-center"> Severity</th>
+          <th class="text-center"> Status </th>
+        </thead>
+        <tbody>
+
+            {% for b in report['findings'] %}
+
+          <tr>
+            <td class="text-center"> {{b.title}}  </td>
+
+
+            {% if b.severity == 'critical' %}
+            <td class="text-center bg-critical"> <span class="text-lg">{{b.severity}} </span>   </td>
+            {% elif b.severity == 'high' %}
+            <td class="text-center bg-high"> <span class="text-lg">{{b.severity}} </span> </td>
+            {% elif b.severity == 'medium' %}
+            <td class="text-center bg-medium"><span class="text-lg">  {{b.severity}}  </span> </td>
+            {% elif b.severity == 'low' %}
+            <td class="text-center bg-low"> <span class="text-lg">{{b.severity}}</span> </td>
+            {% elif b.severity == 'r' %}
+            <td class="text-center bg-info"> <span class="text-lg">{{b.severity}}</span> </td>
+            {% endif %}
+
+
+            <td class="text-center"> {{b.status}}</td>
+          </tr>
+             {% endfor %}
+        </tbody>
+      </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!--h3 id="RemediationSummary-title">Remediation Summary</h3>
+     <p>  .... </p-->
+    </article>
+
+
+
+
+
+
+
+
+
+
+    <article id="findings">
+      <h2 class="break" id="findings-title">Findings Details</h2>
+
+
+{% for b in report['findings'] %}
+<br>
+      <li id="{{b.title}}">  {{b.title}} </li>
+   <table id="table" class="table table-  table-condensed table-striped">
+      <thead>
+         <tr>
+            <th colspan="2">
+               <center>{{b.title}}</center>
+            </th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>Risk Rating</td>
+            {% if b.severity == 'critical' %}
+            <td class="text-center bg-critical"> <span class="text-lg">{{b.severity}} </span>   </td>
+            {% elif b.severity == 'high' %}
+            <td class="text-center bg-high"> <span class="text-lg">{{b.severity}} </span> </td>
+            {% elif b.severity == 'medium' %}
+            <td class="text-center bg-medium"><span class="text-lg">  {{b.severity}}  </span> </td>
+            {% elif b.severity == 'low' %}
+            <td class="text-center bg-low"> <span class="text-lg">{{b.severity}}</span> </td>
+            {% elif b.severity == 'r' %}
+            <td class="text-center bg-info"> <span class="text-lg">{{b.severity}}</span> </td>
+            {% endif %}
+         </tr>
+
+         <tr>
+            <td> Details of Vulnerability </td>
+            <td> 
+
+{{b.desc|safe}}</td>
+         </tr>
+         <tr>
+            <td>Impact</td>
+            <td>{{b.impact|safe}}</td>
+         </tr>
+         <tr>
+            <td>Affected Components</td>
+            <td>{{b.vuln_targets|safe}}</td>
+         </tr>
+         <tr>
+            <td>Suggested Fixes</td>
+            <td>{{b.soln|safe}}</td>
+         </tr>
+         <tr>
+            <td> (Proof of Concept) </td>
+            <td> {{b.poc|safe}}   </td>
+         </tr>
+      </tbody>
+   </table>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+    </article>
+
+
+
+
+
+
+
+    <article id="appendix">
+      <h2 class="break" id="appendix-title">Appendix </h2>
+      <!-- h3> ..</h3>
+       <center> 
+       </center-->
+    </article>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

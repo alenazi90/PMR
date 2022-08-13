@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field %}
+
+{% block head %}
+<script>
+function toEnglishNumber(strNum) {
+   var ar = '٠١٢٣٤٥٦٧٨٩.'.split('');
+   var en = '0123456789.'.split('');
+   strNum = strNum.replace(/[٠١٢٣٤٥٦٧٨٩]/g, x => en[ar.indexOf(x)]);
+   strNum = strNum.replace(/[^\d|\.]/g, '');
+   return strNum;
+}
+
+$(document).on('keyup', '.arabicNumbers', function(e) {
+   var val = toEnglishNumber($(this).val());
+   $(this).val(val);
+});
+
+$(document).on('change', '.AarabicNumbers', function(e) {
+   $(this).val( (parseFloat($(this).val())).toFixed(2) );
+});
+
+</script>
+{% endblock %}
+
+
+{% block body %}
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>New System Form</strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+
+          <div class="row">
+             <div class="col-sm-6">
+
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.department) }}
+                    {{ render_field(form.severity) }}
+                    {{ render_field(form.contact_name) }}
+                    {{ render_field(form.contact_email) }}
+                      
+             </div>
+             <div class="col-sm-6">
+                      
+             </div>
+           </div>
+
+
+
+
+
+
+    </div>
+
+                <div class="card-footer">
+                     <button class="btn btn-info" type="submit" name="button">Save</button>
+                     <a class="btn btn-danger" href="/systems">Back</a>
+		   </form>
+                </div>
+  </div>
+
+
+<script>
+
+</script>
+
+
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

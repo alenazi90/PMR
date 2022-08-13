@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong></strong></h5>
+      <a class="btn btn-info float-right"href="/systems/add">
+        <i class="fas fa-plus"></i> New System
+      </a>
+    </div>
+
+
+    <div class="card-body">
+      <table id="table" class="table table-responsive  table-condensed table-striped">
+        <thead>
+          <th class="text-center"> Name  </th>
+          <th class="text-center">  Department   </th>
+          <th class="text-center">  Business Owner  </th>
+          <th class="text-center">  Business Owner  Email</th>
+          <th class="text-center">  Total IPs</th>
+          <th class="text-center">  Total URLs</th>
+          <th class="text-center">  Last PT</th>
+        </thead>
+        <tbody>
+
+          {% for b in systems %}
+          <tr>
+            <td class="text-center"> <a href="/systems/view/{{b.id}}"> {{b.name}} </a> </td>
+            <td class="text-center"> {{ b.department }} </td>
+            <td class="text-center"> {{ b.contact_name }} </td>
+            <td class="text-center"> {{ b.contact_email }} </td>
+            <td class="text-center"> {{ b.ips_count }} </td>
+            <td class="text-center"> {{ b.urls_count }} </td>
+            <td class="text-center"> 2021 </td>
+            {% if current_user.isAdmin   %}
+            <td class="text-center">  <a href="/admin/systems/delete/{{b.id}}"> <i class="fas  fa-trash "></i> </a>  </td>
+            {% endif %}
+
+          </tr>
+           {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

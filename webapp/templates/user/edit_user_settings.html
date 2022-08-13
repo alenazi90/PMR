@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field %}
+
+{% block head %}
+<script>
+function toEnglishNumber(strNum) {
+   var ar = '٠١٢٣٤٥٦٧٨٩.'.split('');
+   var en = '0123456789.'.split('');
+   strNum = strNum.replace(/[٠١٢٣٤٥٦٧٨٩]/g, x => en[ar.indexOf(x)]);
+   strNum = strNum.replace(/[^\d|\.]/g, '');
+   return strNum;
+}
+
+$(document).on('keyup', '.arabicNumbers', function(e) {
+   var val = toEnglishNumber($(this).val());
+   $(this).val(val);
+});
+
+$(document).on('change', '.AarabicNumbers', function(e) {
+   $(this).val( (parseFloat($(this).val())).toFixed(2) );
+});
+
+</script>
+{% endblock %}
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>تعديل معلومات الشركة</strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data">
+
+
+            {{ form.hidden_tag() }}
+            {{ render_field(form.branch_name) }}
+            {{ render_field(form.vat_no,clas="arabicNumbers") }}
+            {{ render_field(form.file) }}
+            {{ render_field(form.phone,clas="arabicNumbers") }}
+            {{ render_field(form.address) }}
+            {{ render_field(form.cr,clas="arabicNumbers") }}
+            {{ render_field(form.email) }}
+
+
+        <button class="btn btn-info" type="submit" onclick="return checkvalues()" name="button">حفظ</button>
+        <a class="btn btn-danger" href="/user/settings">العودة</a>
+      </form>
+    </div>
+  </div>
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+<script>
+function checkvalues() {
+
+  var vat_no     = $("input[name='vat_no']").val();
+  if ( !vat_no || vat_no.length != 15 ) {
+   alert("VAT Number must be 15 Digits");
+   return false;
+  }
+}
+
+</script>
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

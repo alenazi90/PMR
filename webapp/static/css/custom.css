@@ -1,0 +1,62 @@
+@font-face {font-family: "Droid Arabic Kufi";
+    src: url("/static/fonts/7712e50ecac759e968ac145c0c4a6d33.eot"); /* IE9*/
+    src: url("/static/fonts/7712e50ecac759e968ac145c0c4a6d33.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("/static/fonts/7712e50ecac759e968ac145c0c4a6d33.woff2") format("woff2"), /* chrome firefox */
+    url("/static/fonts/7712e50ecac759e968ac145c0c4a6d33.woff") format("woff"), /* chrome firefox */
+    url("/static/fonts/7712e50ecac759e968ac145c0c4a6d33.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+    url("/static/fonts/7712e50ecac759e968ac145c0c4a6d33.svg#Droid Arabic Kufi") format("svg"); /* iOS 4.1- */
+}
+@media print {
+  .new-page {
+    page-break-before: always;
+  }
+}
+.watermark{
+  position: fixed;
+  bottom: 0;
+  right: 0;        
+  user-select: none; /* Non-prefixed version for chorme, opera and*/
+  -ms-user-select: none; /* Internet Explorer, Edge */
+  -moz-user-select: none; /* Firefox */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+}
+
+.checkbox_width {
+  width:40px;
+}
+
+.bg-critical {
+  background: #f00;
+  color:white;
+}
+
+.bg-high {
+  background-color: #ff491c;
+  color:white;
+}
+
+.bg-medium {
+  background-color: #f90;
+  color:white;
+}
+
+.bg-low {
+  background-color: #f3d70c;
+  color:white;
+}
+
+* {
+  font-family: 'Droid Arabic Kufi';
+
+}
+body {
+  font-family: 'Droid Arabic Kufi';
+  //text-align: right;
+}
+.big-badge {
+    border-radius: 3px;
+    width: 70px;
+    padding: 7px;
+}

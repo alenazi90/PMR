@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>PT App</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+
+  <script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='js/local.js') }}"></script>
+
+
+  <!-- jQuery -->  
+  <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js') }}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- ChartJS -->
+  <script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js') }}"></script>
+
+  <!-- AdminLTE App --> 
+  <script src="{{ url_for('static', filename='dist/js/adminlte.min.js') }}"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-table.css') }}">
+  <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
+
+  <!-- jQuery -->  
+  <script src="{{ url_for('static', filename='plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+
+  <!-- date-range-picker -->
+  <script src="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/summernote/summernote-bs4.css') }}">
+  <!-- Summernote -->
+  <script src="{{ url_for('static', filename='plugins/summernote/summernote-bs4.min.js') }}"></script>
+
+
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/toastr/toastr.min.css') }}">
+  <script src="{{ url_for('static', filename='plugins/toastr/toastr.min.js') }}"></script>
+
+
+
+  <script src="{{ url_for('static', filename='js/typeahead.bundle.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-tagsinput.css') }}">
+  <script src="{{ url_for('static', filename='js/bootstrap-tagsinput.min.js') }}"></script>
+
+
+
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/css/select2.min.css') }}">
+  <script src="{{ url_for('static', filename='plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+    $(function () {
+      $('.select2').select2()
+    });
+</script>
+
+
+<!-- jQuery Knob -->
+<script src="{{ url_for('static', filename='plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+
+
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+
+
+        {% block head %}{% endblock %}
+
+
+
+
+
+</head>
+
+
+
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container">
+      <a href="/" class="navbar-brand">
+        <img src="/static/images/logos/target.png" alt="" class="brand-image  " >
+        <span class="brand-text font-weight-light">   PT Management </span>
+      </a>
+
+      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+{% if current_user.is_authenticated %}
+
+      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <a href="/systems" class="nav-link">Assets</a>
+          </li>
+          <li class="nav-item">
+            <a href="/engagements" class="nav-link">Engagements</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Profile </a>
+            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+              <li><a href="/user/profile" class="dropdown-item">Account</a></li>
+
+{% if current_user.isAdmin %}
+              <li class="dropdown-divider"></li>
+              <li><a href="/admin" class="dropdown-item text-red">User Management</a></li>
+              <li><a href="/admin/settings" class="dropdown-item text-red">Settings</a></li>
+{% endif %}
+
+              <li class="dropdown-divider"></li>
+              <li><a href="/logout" class="dropdown-item">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+
+      </div> <!-- "collapse navbar-collapse order-3" -->
+
+{% endif %}
+    </div>
+  </nav>
+  <!-- /.navbar -->
+
+
+
+<div class="container">
+ {% block body %}
+
+
+{% endblock %}
+</div>
+
+
+
+
+{% if current_user.is_authenticated %}
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; Abdulrahman Alenazi <a href="{{config['app_base_url']}}">PT MGMT</a>.</strong> All rights reserved.
+  </footer>
+{% endif %}
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+</body>
+</html>

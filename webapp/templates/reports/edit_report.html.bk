@@ -1,0 +1,420 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field, render_field_r %}
+
+{% block head %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simple-excel-js@1.0.0/src/simple-excel.min.js"></script>
+
+        <script type="text/javascript">
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+$(document).ready( function(e) {
+
+  var wrapper = $(".container1");
+  wrapper.html('');
+
+            // read a CSV file
+            var csvParser = new SimpleExcel.Parser.CSV();
+            var fileInput = document.getElementById('fileInput');
+            // parse when file loaded, then print the result to console
+            fileInput.addEventListener('change', function (e) {            
+                var file = e.target.files[0];
+                csvParser.loadFile(file, function () {
+
+                    var sheet = csvParser.getSheet(1);
+                    console.log(sheet);
+                    sheet.forEach(function (el, i) {
+                        var report_name = csvParser.getSheet(1).getCell(1,1+i).value;
+                        var r_date = csvParser.getSheet(1).getCell(4,1+i).value;
+                        var title = csvParser.getSheet(1).getCell(6,1+i).value;
+                        var severity = csvParser.getSheet(1).getCell(8,1+i).value;
+                        var desc = "";
+                        var soln = "";
+
+
+                //      $("#third_party").prop('checked', true);
+               //       $("#report_name").val(report_name);
+
+
+            if (severity.toLowerCase() == 'critical' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical" selected>Critical</option>                       <option value="high">High</option>                       <option value="medium">Medium</option>                       <option value="low">Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text" name="soln[]" class="form-control" >'+soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+            if (severity.toLowerCase() == 'high' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical">Critical</option>                       <option value="high" selected>High</option>                       <option value="medium">Medium</option>                       <option value="low">Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text"  name="soln[]" class="form-control" >'+soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+            if (severity.toLowerCase() == 'medium' || severity.toLowerCase() == 'moderate' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical">Critical</option>                       <option value="high">High</option>                       <option value="medium" selected>Medium</option>                       <option value="low">Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text" name="soln[]" class="form-control" >'+soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+            if (severity.toLowerCase() == 'low' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical">Critical</option>                       <option value="high">High</option>                       <option value="medium">Medium</option>                       <option value="low" selected>Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text"  name="soln[]" class="form-control" >'+soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+
+
+
+                    }); // end sheet
+                }); // end csvParser 
+            }); // end file input event
+
+
+ }); // end ready
+        </script>
+
+
+
+<script>
+function toEnglishNumber(strNum) {
+   var ar = '٠١٢٣٤٥٦٧٨٩.'.split('');
+   var en = '0123456789.'.split('');
+   strNum = strNum.replace(/[٠١٢٣٤٥٦٧٨٩]/g, x => en[ar.indexOf(x)]);
+   strNum = strNum.replace(/[^\d|\.]/g, '');
+   return strNum;
+}
+
+$(document).on('keyup', '.arabicNumbers', function(e) {
+   var val = toEnglishNumber($(this).val());
+   $(this).val(val);
+});
+
+$(document).on('change', '.AarabicNumbers', function(e) {
+   $(this).val( (parseFloat($(this).val())).toFixed(2) );
+});
+
+
+var report_id=1;
+$(document).ready( function(e) {
+  report_id = $("#report_id").val() ;
+});
+function make_report_id() {
+
+  if ( $("#third_party:checked").is(':checked') ) {
+      var name = $("#report_name").val();
+      $("#report_id").val(name );
+      return ;
+  }
+  var name = $("#report_name").val().toUpperCase().trim().replace(/\s+/g,"-");
+  var scope = $("#scope").val().toUpperCase();
+  var cid = report_id;
+  var cids = cid.split("-");
+  $("#report_id").val(cids[0]+"-"+cids[1]+"-"+name+"-"+scope+"-"+cids[2] );
+
+}
+
+$(document).on('change', "input[name='report_name']", function(e) {
+  make_report_id();
+});
+
+$(document).on('change', "select[name='scope']", function(e) {
+  make_report_id();
+});
+
+$(document).on('change', "#third_party", function(e) {
+ make_report_id();
+});
+
+
+function populate_items() {
+
+  var items = {{findings|tojson|safe}};
+  var wrapper = $(".container1");
+  wrapper.html('');
+
+  $.each(items, function(key,val) {
+            if (val.severity == 'critical' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+val.title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+val.desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical" selected>Critical</option>                       <option value="high">High</option>                       <option value="medium">Medium</option>                       <option value="low">Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text" name="soln[]" class="form-control" >'+val.soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+val.status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+            if (val.severity == 'high' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+val.title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+val.desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical">Critical</option>                       <option value="high" selected>High</option>                       <option value="medium">Medium</option>                       <option value="low">Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text"  name="soln[]" class="form-control" >'+val.soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+val.status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+            if (val.severity == 'medium' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+val.title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+val.desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical">Critical</option>                       <option value="high">High</option>                       <option value="medium" selected>Medium</option>                       <option value="low">Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text" name="soln[]" class="form-control" >'+val.soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+val.status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+            if (val.severity == 'low' ) {
+              $(wrapper).append('   <div class="row">  '+
+               '<div class="col-5">    <label>Vuln Title</lable>   <input type="text" value="'+val.title+'" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+               //'<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" >'+val.desc+'</textarea>                  </div>'+
+               '<div class="col">                    <label>Severity</lable>                    <select  name="severity[]" class="unit form-control">                       <option  value="critical">Critical</option>                       <option value="high">High</option>                       <option value="medium">Medium</option>                       <option value="low" selected>Low</option>                    </select>                  </div>'+
+               //'<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text"  name="soln[]" class="form-control" >'+val.soln+'</textarea>                  </div>'+
+               '<div class="col"> <label>Status</lable> <select value="'+val.status+'" name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+               '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+               '</div>');
+             }
+
+
+  });
+
+}
+
+
+
+
+
+
+
+
+$(document).ready(function() {
+    {% if findings %}
+    populate_items();
+    {% endif %}
+    var max_fields = 100;
+    var wrapper = $(".container1");
+    var add_button = $(".add_form_field");
+
+    var x = 1;
+    $(add_button).click(function(e) {
+        e.preventDefault();
+        if (x < max_fields) {
+            x++;
+
+//            $(wrapper).append('               <div class="row">                  <div class="col-3">                    <label>Vuln Title</lable>                    <input type="text" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>                  <div class="col-3">                    <label>Vuln Description</lable>                    <textarea type="text" name="desc[]" class="form-control" ></textarea>                  </div>                  <div class="col-3">                    <label>Vuln Severity</lable>                    <select name="severity[]" class="unit form-control">                       <option value="critical">Critical</option>                       <option value="high">High</option>                       <option value="medium">Medium</option>                       <option value="low">Low</option>                    </select>                  </div>                  <div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text" name="soln[]" class="form-control" ></textarea>                  </div>                  <div class="col-1">                  </div>                </div>');
+            $(wrapper).append('   <div class="row">  '+
+             '<div class="col-3">    <label>Vuln Title</lable>   <input type="text" name="title[]" class="form-control" placeholder="Vuln Title">                  </div>'+
+             '<div class="col-3">    <label>Vuln Description</lable>                    <textarea type="text"  name="desc[]" class="form-control" ></textarea>                  </div>'+
+             '<div class="col-1">                    <label>Severity</lable>                    <select name="severity[]" class="unit form-control">                       <option value="critical">Critical</option>                       <option value="high">High</option>                       <option value="medium">Medium</option>                       <option value="low">Low</option>                    </select>                  </div>'+
+             '<div class="col-3">                    <label>Vuln Solution</lable>                    <textarea type="text" name="soln[]" class="form-control" ></textarea>                  </div>'+
+             '<div class="col-1"> <label>Status</lable> <select  name="status[]" class="unit form-control">  <option value="Open">Open</option> <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>  <option value="Closed">Closed</option><option value="Risk Accepted">Risk Accepted</option>  </select></div>'+
+             '<div class="col-1">  <label>Action</lable> <a href="#" class="btn btn-danger  delete"><i class="fas fa-trash"></i></a>   </div>' + 
+             '</div>');
+
+        } else {
+            alert('You Reached the limits')
+        }
+    });
+
+    $(wrapper).on("click", ".delete", function(e) {
+        e.preventDefault();
+        $(this).parent('div').parent('div').remove();
+        x--;
+     console.log("d"); 
+   })
+});
+
+
+</script>
+{% endblock %}
+
+
+{% block body %}
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+  <div class="card">
+    <div class="card-header bg-high">
+      <h5 style="display:inline-block"><strong>Edit Report </strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="/reports/edit/{{form.id.data}}">
+
+            {{ form.hidden_tag() }}
+
+
+          <div class="row">
+             <div class="col-12">
+
+                    {{ render_field(form.third_party, clas="checkbox_width") }}
+                    {{ render_field(form.report_name) }}
+                    {{ render_field_r(form.report_id) }}
+                    <!-- { {  render_field(form.r_id)  } } -->
+                    <!-- { { render_field(form.tester, clas="select2 ",multiple=True) } } -->
+
+                 <div class="form-group row mb-3">
+                     <label class="col-3 col-form-label" for="type">Tester</label>
+                    <div class="col-9">
+                       <select class="form-control js-example-basic-multiple" id="tester" name="tester[]" multiple="multiple">
+                         {% for tester in testers %}
+                          {% if tester.id in cur_testers %}
+                           <option value="{{tester.id}}" selected>{{tester.name}}</option>
+                          {% else %}
+                           <option value="{{tester.id}}" >{{tester.name}}</option>
+                          {% endif %}
+                         {% endfor %}
+                       </select>
+                     </div>
+                  </div>
+
+
+
+
+
+                    {{ render_field_r(form.type) }}
+                    {{ render_field(form.scope,clas="select2 ") }}
+                    {{ render_field(form.recv_date) }}
+                      
+
+                    <label>Upload Hafidh Execl</lable>
+                       <input type="file" id="fileInput" /><br/>
+
+
+
+
+            <div class="container1" style="margin-bottom:20px;margin-top:20px">
+               <div class="row">
+
+                  <div class="col-3">
+                    <label>Vuln Title</lable>
+                    <input type="text" name="title[]" class="form-control" placeholder="Vuln Title">
+                  </div>
+
+                  <div class="col-3">
+                    <label>Vuln Description</lable>
+                    <textarea type="text" name="desc[]" class="form-control" ></textarea>
+                  </div>
+
+
+                  <div class="col-1">
+                    <label>Vuln Severity</lable>
+                    <select name="severity[]" class="unit form-control">
+                       <option value="critical">Critical</option>
+                       <option value="high">High</option>
+                       <option value="medium">Medium</option>
+                       <option value="low">Low</option>
+                    </select>
+                  </div>
+
+
+                  <div class="col-3">
+                    <label>Vuln Solution</lable>
+                    <textarea type="text" name="soln[]" class="form-control" ></textarea>
+                  </div>
+
+
+
+
+                 <div class="col-1"> 
+                    <label>Status</lable> 
+                    <select  name="status[]" class="unit form-control"> 
+                         <option value="Open">Open</option>
+                         <option value="Partially Remidated">Partially Remidated</option><option value="Not Applicable">Not Applicable</option>
+                         <option value="Closed">Closed</option> 
+                         <option value="Risk Accepted">Risk Accepted</option> 
+                     </select>
+                 </div>
+
+                  <div class="col-1">
+                  </div>
+
+                </div>
+            </div>
+
+
+          <br>
+          <div class="row ">
+             <div class="col-sm-2">
+                <button class="add_form_field btn btn-info form-control  ">Add More </button>
+             </div>
+          </div>
+          <br>
+
+
+                      
+             </div> <!-- col12 -->
+           </div>
+
+
+
+
+
+
+    </div>
+
+                <div class="card-footer">
+                     <button class="btn btn-info" type="submit" name="button">Save</button>
+                     <a class="btn btn-danger" href="/engagements/view/{{form.e_id.data}}">Back</a>
+		   </form>
+                </div>
+  </div>
+
+
+<script>
+
+</script>
+
+
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

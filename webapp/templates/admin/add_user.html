@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>New User Form</strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+
+
+            {{ form.hidden_tag() }}
+            {{ render_field(form.name) }}
+            {{ render_field(form.phone) }}
+            {{ render_field(form.email) }}
+            {{ render_field(form.job_title) }}
+            {{ render_field(form.type) }}
+
+
+        <button class="btn btn-info" type="submit" name="button">Save</button>
+        <a class="btn btn-danger" href="/admin/">Back</a>
+      </form>
+    </div>
+  </div>
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field_r %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong>User Information</strong></h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+
+
+            {{ form.hidden_tag() }}
+            {{ render_field_r(form.name) }}
+            {{ render_field_r(form.password) }}
+            {{ render_field_r(form.type) }}
+            {{ render_field_r(form.phone) }}
+            {{ render_field_r(form.email) }}
+
+
+        <a class="btn btn-info" href="/user/profile/edit"> Edit user information</a>
+        <a class="btn btn-info" href="/user/password/edit"> Change Password </a>
+        <a class="btn btn-danger" href="/">Back</a>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% from  "_formhelpers.html" import render_field %}
+
+{% block title %}Login{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="card">
+
+                            <!-- Logo -->
+                            <div class="card-header pt-4 pb-4 text-center ">
+                                <a href="index.html">
+                                    <span><img src="/static/images/logos/yla%20estlm4-final.png" alt="" height="18"></span>
+
+                                </a>
+                            </div>
+
+                            <div class="card-body p-4">
+                                
+                                <div class="text-center w-75 m-auto">
+                                    <h4 class="text-dark-50 text-center mt-0 font-weight-bold">System MGMT</h4>
+                                    <p class="text-muted mb-4"></p>
+                                </div>
+
+                                <form id="loginform" method="POST" action="/login" >
+
+
+
+
+                             {{ form.hidden_tag() }}
+                             {{ render_field(form.email) }}
+                             {{ render_field(form.password) }}
+
+
+                                    <div class="form-group mb-0 text-center">
+                                        <button class="btn btn-primary" type="submit"> Login</button>
+                                    </div>
+
+                                </form>
+                            </div> <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+
+                        <!-- end row -->
+
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class=" content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+
+        <div class="row">
+          <div class="col-lg-12">
+
+
+
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display:inline-block"><strong></strong></h5>
+      <a class="btn btn-info float-right"href="/engagements/add">
+        <i class="fas fa-plus"></i> New Engagement
+      </a>
+    </div>
+
+<div class="form-group">
+ <input type="text" id="myInput" onkeyup="myFunction()"  class="form-control" placeholder="Search for names..">
+</div>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+    <div class="card-body">
+      <table id="table" class="table table-  table-condensed table-striped">
+        <thead>
+          <th class="text-center"> Name </th>
+          <th class="text-center"> Category </th>
+          <th class="text-center"> Assigned To  </th>
+          <th class="text-center"> Tester  </th>
+          <th class="text-center"> Start Date</th>
+          <th class="text-center"> End Date</th>
+          <th class="text-center"> Type</th>
+          <th class="text-center"> Status</th>
+          <!-- th class="text-center"> Status</th -->
+        </thead>
+        <tbody>
+
+          {% for b in result %}
+          <tr>
+            <td class="text-center"> <a href="/engagements/view/{{b.id}}"> {{b.name}} </a> </td>
+            <td class="text-center"> {{ b.category }} </td>
+            <td class="text-center"> {{ b.assigned_to }} </td>
+            <td class="text-center"> {{ b.tester }} </td>
+            <td class="text-center"> {{ b.start_date }} </td>
+            <td class="text-center"> {{ b.end_date }} </td>
+            <td class="text-center">  
+             {% if  'network' in b.type %}
+              <i class="fas  fa-network-wired "></i>
+             {% endif %}
+             {% if 'web' in b.type %}
+              <i class="fab   fa-edge "></i>
+             {% endif %}
+             {% if 'android' in b.type %}
+              <i class="fab  fa-android "></i>
+             {% endif %}
+             {% if 'ios' in b.type %}
+             <i class="fab  fa-apple "></i>
+             {% endif %}
+
+            </td>
+
+
+            <td class="text-center"> 
+              <span class="info-box-number">{{b.e.status}}</span>
+               <div class="progress progress-sm">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: {{b.e.bar}}%"></div>
+               </div>
+            </td>
+
+            {% if current_user.isAdmin   %}
+            <td class="text-center">  <a href="/admin/engagements/delete_eng/{{b.id}}"> <i class="fas  fa-trash "></i> </a>  </td>
+            {% endif %}
+          </tr>
+           {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock %}
